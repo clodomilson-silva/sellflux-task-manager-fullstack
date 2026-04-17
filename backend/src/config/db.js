@@ -7,12 +7,15 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL
 });
 
-client.connect((err) => {
-  if (err) {
-    console.error('Erro ao conectar no banco:', err.stack);
-  } else {
-    console.log('Conectado ao PostgreSQL');
-  }
-});
+//  Só conecta se NÃO estiver em teste
+if (process.env.NODE_ENV !== 'test') {
+  client.connect((err) => {
+    if (err) {
+      console.error('Erro ao conectar no banco:', err.stack);
+    } else {
+      console.log('Conectado ao PostgreSQL');
+    }
+  });
+}
 
 module.exports = client;
