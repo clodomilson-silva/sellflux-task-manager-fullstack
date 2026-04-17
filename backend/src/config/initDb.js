@@ -3,6 +3,11 @@ const path = require('path');
 const client = require('./db');
 
 const initDatabase = () => {
+  if (process.env.SKIP_SCHEMA_INIT === 'true') {
+    console.log('Inicializacao de schema ignorada por configuracao.');
+    return;
+  }
+
   const schemaPath = path.join(__dirname, '../../../db/schema.sql');
 
   fs.readFile(schemaPath, 'utf8', (err, sql) => {

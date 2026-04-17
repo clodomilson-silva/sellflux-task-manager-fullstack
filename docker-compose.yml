@@ -1,22 +1,32 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:15
+    container_name: sellflux_postgres
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: tasks_db
-    volumes:
-      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     ports:
       - "5432:5432"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tasks_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   backend:
     build: ./backend
+    container_name: sellflux_backend
+    restart: always
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/tasks_db
+      NODE_ENV: development
+      SKIP_SCHEMA_INIT: "true"
     depends_on:
-      - db
+      db:
+        condition: service_healthy

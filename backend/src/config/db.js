@@ -1,7 +1,10 @@
 const { Client } = require('pg');
 const path = require('path');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
+require('dotenv').config({
+  path: path.resolve(__dirname, '../../../.env'),
+  quiet: true
+});
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL
