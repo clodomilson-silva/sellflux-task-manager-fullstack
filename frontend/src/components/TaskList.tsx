@@ -1,35 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../services/api';
+import { Task } from '../types';
+import { TaskItem } from './TaskItem';
 
-export const TaskForm = ({ onTaskCreated }: any) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+export const TaskList = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-
-    api.post('/tasks', { title, description })
-      .then(() => {
-        setTitle('');
-        setDescription('');
-        onTaskCreated();
-      });
+  const fetchTasks = () => {
+    api.get('/tasks').then((res) => setTasks(res.data));
   };
 
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        placeholder="Título"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        required
-      />
-      <input
-        placeholder="Descrição"
-        value={description}
-        onChange={e => setDescription(e.target.value)}
-      />
-      <button type="submit">Criar</button>
-    </form>
+    <div>
+      <h2>Lista de Tarefas</h2>
+      {tasks.map((task) => (
+        <TaskItem key={task.id} task={task} refresh={fetchTasks} />
+      ))}
+    </div>
   );
 };
