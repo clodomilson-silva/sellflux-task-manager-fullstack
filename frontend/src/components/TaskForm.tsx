@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { api } from '../services/api';
 
-export const TaskForm = ({ onTaskCreated }: any) => {
+type TaskFormProps = {
+  onTaskCreated: () => void;
+};
+
+export const TaskForm = ({ onTaskCreated }: TaskFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmedTitle = title.trim();
     const trimmedDescription = description.trim();
@@ -23,7 +27,7 @@ export const TaskForm = ({ onTaskCreated }: any) => {
         setError('');
         onTaskCreated();
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setError(err?.response?.data?.error || 'Nao foi possivel criar a tarefa.');
       });
   };

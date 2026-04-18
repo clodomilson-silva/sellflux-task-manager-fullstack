@@ -1,18 +1,39 @@
 import { useState } from 'react';
 import { api } from '../services/api';
+import { Task } from '../types';
 import { Comments } from './Comments';
 
-export const TaskItem = ({ task, refresh }: any) => {
+type TaskItemProps = {
+  task: Task;
+  refresh: () => void;
+};
+
+export const TaskItem = ({ task, refresh }: TaskItemProps) => {
   const [showComments, setShowComments] = useState(false);
+  const [error, setError] = useState('');
 
   const toggleTask = () => {
-    api.patch(`/tasks/${task.id}`)
-      .then(refresh);
+    api
+      .patch(`/tasks/${task.id}`)
+      .then(() => {
+        setError('');
+        refresh();
+      })
+      .catch((err: any) => {
+        setError(err?.response?.data?.error || 'Nao foi possivel atualizar tarefa.');
+      });
   };
 
   const deleteTask = () => {
-    api.delete(`/tasks/${task.id}`)
-      .then(refresh);
+    api
+      .delete(`/tasks/${task.id}`)
+      .then(() => {
+        setError('');
+        refresh();
+      })
+      .catch((err: any) => {
+        setError(err?.response?.data?.error || 'Nao foi possivel excluir tarefa.');
+      });
   };
 
   return (
@@ -34,6 +55,7 @@ export const TaskItem = ({ task, refresh }: any) => {
       </button>
 
       {showComments && <Comments taskId={task.id} />}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };

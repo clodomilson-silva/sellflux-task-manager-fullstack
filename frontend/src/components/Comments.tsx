@@ -1,16 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../services/api';
+import { Comment } from '../types';
 
-export const Comments = ({ taskId }: any) => {
-  const [comments, setComments] = useState<any[]>([]);
+type CommentsProps = {
+  taskId: string;
+};
+
+export const Comments = ({ taskId }: CommentsProps) => {
+  const [comments, setComments] = useState<Comment[]>([]);
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
 
   const fetchComments = useCallback(() => {
     api.get(`/tasks/${taskId}/comments`)
-      .then(res => setComments(res.data))
-      .catch(() => {
-        setError('Nao foi possivel carregar comentarios.');
+      .then((res) => {
+        setComments(res.data);
+        setError('');
+      })
+      .catch((err: any) => {
+        setError(err?.response?.data?.error || 'Nao foi possivel carregar comentarios.');
       });
   }, [taskId]);
 
@@ -32,7 +40,7 @@ export const Comments = ({ taskId }: any) => {
         setError('');
         fetchComments();
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setError(err?.response?.data?.error || 'Nao foi possivel adicionar comentario.');
       });
   };
