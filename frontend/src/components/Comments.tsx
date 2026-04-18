@@ -46,7 +46,7 @@ export const Comments = ({ taskId }: CommentsProps) => {
   };
 
   return (
-    <div>
+    <div className="comments">
       <h4>Comentários</h4>
 
       {comments.map(c => (

@@ -1,38 +1,144 @@
-.App {
+/* Reset básico */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f6fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principal */
+.app-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* Título */
+h1 {
   text-align: center;
+  color: #2f3640;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Formulário */
+form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form button {
+  padding: 10px 16px;
+  border: none;
+  background-color: #0984e3;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #74b9ff;
+}
+
+/* Card da tarefa */
+.task-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título tarefa */
+.task-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.task-status-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.task-status-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-done {
+  background-color: #dff9e8;
+  color: #0a8f5a;
+}
+
+.status-pending {
+  background-color: #ffe8cc;
+  color: #b26a00;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: #636e72;
+}
+
+/* Botões */
+.task-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-complete {
+  background-color: #00b894;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-delete {
+  background-color: #d63031;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-comments {
+  background-color: #6c5ce7;
+  color: white;
+}
+
+/* Comentários */
+.comments {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f1f2f6;
+  border-radius: 6px;
+}
+
+.comments input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.comments button {
+  margin-top: 5px;
+  padding: 6px 10px;
+  background-color: #0984e3;
+  color: white;
+  border: none;
+  border-radius: 6px;
 }

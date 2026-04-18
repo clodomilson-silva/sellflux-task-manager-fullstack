@@ -37,22 +37,30 @@ export const TaskItem = ({ task, refresh }: TaskItemProps) => {
   };
 
   return (
-    <div style={{ border: '1px solid #ccc', margin: 10, padding: 10 }}>
-      <h3 style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+    <div className="task-card">
+      <div className="task-status-row">
+        <span className={`task-status-badge ${task.completed ? 'status-done' : 'status-pending'}`}>
+          {task.completed ? 'Concluída' : 'Pendente'}
+        </span>
+      </div>
+
+      <h3 className={`task-title ${task.completed ? 'task-completed' : ''}`}>
         {task.title}
       </h3>
 
       <p>{task.description}</p>
 
-      <button onClick={toggleTask}>
-        {task.completed ? 'Desmarcar' : 'Concluir'}
-      </button>
+      <div className="task-actions">
+        <button className="btn-complete" onClick={toggleTask}>
+          {task.completed ? 'Desmarcar' : 'Concluir'}
+        </button>
 
-      <button onClick={deleteTask}>Excluir</button>
+        <button className="btn-delete" onClick={deleteTask}>Excluir</button>
 
-      <button onClick={() => setShowComments(!showComments)}>
-        Comentários
-      </button>
+        <button className="btn-comments" onClick={() => setShowComments(!showComments)}>
+          Comentários
+        </button>
+      </div>
 
       {showComments && <Comments taskId={task.id} />}
       {error && <p style={{ color: 'red' }}>{error}</p>}

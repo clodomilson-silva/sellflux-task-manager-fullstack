@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './App.css';
 import { TaskForm } from './components/TaskForm';
 import { TaskList } from './components/TaskList';
 
@@ -10,7 +11,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <h1>Task Manager</h1>
       <TaskForm onTaskCreated={handleTaskCreated} />
       <TaskList reloadSignal={reloadSignal} />
