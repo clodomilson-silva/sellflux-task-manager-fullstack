@@ -57,8 +57,8 @@ A aplicação backend foi desenvolvida seguindo rigorosamente os requisitos elim
 │   │   ├── routes/
 │   │   ├── controllers/
 │   │   ├── models/
-│   │   └── config/
-│   ├── __tests__/
+│   │   ├── config/
+│   │   └── __tests__/
 │   └── Dockerfile
 │
 ├── frontend/
@@ -117,6 +117,7 @@ cp .env.example .env
 
 ```env
 PORT=3000
+CORS_ORIGINS=http://localhost:3001,http://localhost:3000
 
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/tasks_db
 
