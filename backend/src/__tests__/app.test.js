@@ -9,6 +9,9 @@ const TaskModel = require('../models/tasks.model');
 const CommentModel = require('../models/comments.model');
 
 describe('Task API Tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   
   // POST /tasks (sucesso)
@@ -103,6 +106,35 @@ describe('Task API Tests', () => {
 
     request(app)
       .delete('/tasks/non-existing-id')
+      .expect(404)
+      .end((err, res) => {
+        expect(res.body.error).toBeDefined();
+        done(err);
+      });
+  });
+
+  it('should return 404 when toggling a non-existing task', (done) => {
+    TaskModel.toggleTask.mockImplementation((id, callback) => {
+      callback(null, null);
+    });
+
+    request(app)
+      .patch('/tasks/non-existing-id')
+      .expect(404)
+      .end((err, res) => {
+        expect(res.body.error).toBeDefined();
+        done(err);
+      });
+  });
+
+  it('should return 404 when creating comment for non-existing task', (done) => {
+    CommentModel.createComment.mockImplementation((taskId, content, callback) => {
+      callback({ code: '23503', message: 'foreign_key_violation' });
+    });
+
+    request(app)
+      .post('/tasks/non-existing-id/comments')
+      .send({ content: 'Test comment' })
       .expect(404)
       .end((err, res) => {
         expect(res.body.error).toBeDefined();

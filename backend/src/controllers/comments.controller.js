@@ -22,7 +22,9 @@ const createComment = (req, res) => {
 
   Comment.createComment(id, content, (err, comment) => {
     if (err) {
-      // possível erro de FK (task inexistente)
+      if (err.code === '23503') {
+        return res.status(404).json({ error: 'Tarefa não encontrada' });
+      }
       return res.status(500).json({ error: err.message });
     }
 

@@ -107,8 +107,16 @@ curl -X GET http://localhost:3000/tasks
 
 Crie o arquivo `.env` a partir do exemplo:
 
+### Linux/macOS
+
 ```bash
 cp .env.example .env
+```
+
+### Windows (PowerShell)
+
+```powershell
+Copy-Item .env.example .env
 ```
 
 ---
@@ -119,28 +127,46 @@ cp .env.example .env
 PORT=3000
 CORS_ORIGINS=http://localhost:3001,http://localhost:3000
 
-DATABASE_URL=postgres://postgres:postgres@localhost:5432/tasks_db
+DATABASE_URL=postgres://USER:PASSWORD@localhost:5432/tasks_db
 
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=tasks_db
+POSTGRES_USER=your_user
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=your_database
 ```
 
 ---
 
 ## ▶️ Executando Localmente (sem Docker)
 
-### 1. Iniciar PostgreSQL
+### 1. Iniciar PostgreSQL (por sistema operacional)
 
+#### Linux
 ```bash
 sudo systemctl start postgresql
 ```
 
-### 2. Criar banco
+#### macOS (Homebrew)
+
+```bash
+brew services start postgresql
+```
+
+#### Windows
+
+```powershell
+net start postgresql-x64-15
+```
+
+### 2. Acessar o PostgreSQL e criar banco
 
 ```sql
 CREATE DATABASE tasks_db;
 ```
+
+Exemplo para abrir o cliente SQL:
+
+- Linux/macOS: `psql -U postgres`
+- Windows: usar pgAdmin ou `psql` do diretório de instalação do PostgreSQL.
 
 ### 3. Rodar backend
 
@@ -161,6 +187,8 @@ cd frontend
 npm install
 npm start
 ```
+
+Por padrão, o frontend roda em `http://localhost:3001` e consome a API em `http://localhost:3000`.
 
 > O backend pode ser executado tanto localmente quanto via Docker.
 

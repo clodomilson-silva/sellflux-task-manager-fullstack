@@ -31,6 +31,9 @@ const toggleTask = (req, res) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
+    if (!task) {
+      return res.status(404).json({ error: 'Tarefa não encontrada' });
+    }
     res.json(task);
   });
 };
