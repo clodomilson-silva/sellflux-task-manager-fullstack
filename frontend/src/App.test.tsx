@@ -2,8 +2,16 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('./components/TaskForm', () => ({
+  TaskForm: () => <div>TaskForm</div>,
+}));
+
+jest.mock('./components/TaskList', () => ({
+  TaskList: () => <div>TaskList</div>,
+}));
+
+test('renders task manager title', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const titleElement = screen.getByText(/task manager/i);
+  expect(titleElement).toBeInTheDocument();
 });
