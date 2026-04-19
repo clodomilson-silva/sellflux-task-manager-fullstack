@@ -49,6 +49,37 @@ A aplicação backend foi desenvolvida seguindo rigorosamente os requisitos elim
 
 ---
 
+## ✅ Pré-requisitos
+
+Antes de executar o projeto, garanta que você possui:
+
+* **Git** instalado
+* **Node.js** (recomendado: v20+) e **npm**
+* **Docker** e **Docker Compose** (para execução recomendada)
+* **PostgreSQL** (apenas se for executar sem Docker)
+
+---
+
+## 🔎 Observações importantes de configuração
+
+* O arquivo `.env.example` possui valores de exemplo; crie o `.env` e substitua os placeholders por credenciais reais.
+* O backend roda por padrão em `http://localhost:3000`.
+* O frontend roda por padrão em `http://localhost:3001`, evitando conflito com o backend.
+* Se necessário, ajuste a URL da API no frontend via `frontend/.env` com `REACT_APP_API_BASE_URL`.
+
+---
+
+## 🧭 Fluxo recomendado para avaliadores
+
+1. Clonar o repositório.
+2. Criar `.env` a partir de `.env.example`.
+3. Executar `docker-compose up --build`.
+4. Validar a API em `http://localhost:3000/tasks`.
+5. Subir frontend em outro terminal (`cd frontend`, `npm install`, `npm start`).
+6. Acessar o frontend em `http://localhost:3001`.
+
+---
+
 ## 📁 Estrutura do Projeto
 
 ```bash
