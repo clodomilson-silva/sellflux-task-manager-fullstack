@@ -1,4 +1,10 @@
 /* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #f5f6fa;
@@ -128,10 +134,12 @@ form button:hover {
 
 .comments input {
   width: 100%;
+  max-width: 100%;
   padding: 8px;
   margin-top: 5px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  display: block;
 }
 
 .comments button {
