@@ -188,7 +188,19 @@ npm install
 npm start
 ```
 
-Por padrão, o frontend roda em `http://localhost:3001` e consome a API em `http://localhost:3000`.
+O script de start fixa o frontend em `http://localhost:3001` (evitando conflito com o backend em `3000`).
+
+Se quiser sobrescrever a URL da API no frontend, crie `frontend/.env` a partir do exemplo:
+
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+No Windows (PowerShell):
+
+```powershell
+Copy-Item frontend/.env.example frontend/.env
+```
 
 > O backend pode ser executado tanto localmente quanto via Docker.
 
