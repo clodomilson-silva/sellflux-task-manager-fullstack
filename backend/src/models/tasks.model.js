@@ -42,7 +42,13 @@ const toggleTask = (id, callback) => {
 };
 
 const deleteTask = (id, callback) => {
-  client.query('DELETE FROM tasks WHERE id = $1', [id], callback);
+  client.query('DELETE FROM tasks WHERE id = $1', [id], (err, result) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+    callback(null, result.rowCount > 0);
+  });
 };
 
 module.exports = {

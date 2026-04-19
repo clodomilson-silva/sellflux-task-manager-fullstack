@@ -96,4 +96,18 @@ describe('Task API Tests', () => {
       });
   });
 
+  it('should return 404 when deleting a non-existing task', (done) => {
+    TaskModel.deleteTask.mockImplementation((id, callback) => {
+      callback(null, false);
+    });
+
+    request(app)
+      .delete('/tasks/non-existing-id')
+      .expect(404)
+      .end((err, res) => {
+        expect(res.body.error).toBeDefined();
+        done(err);
+      });
+  });
+
 });

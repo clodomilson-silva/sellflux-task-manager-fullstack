@@ -38,9 +38,12 @@ const toggleTask = (req, res) => {
 const deleteTask = (req, res) => {
   const { id } = req.params;
 
-  Task.deleteTask(id, (err) => {
+  Task.deleteTask(id, (err, deleted) => {
     if (err) {
       return res.status(500).json({ error: err.message });
+    }
+    if (!deleted) {
+      return res.status(404).json({ error: 'Tarefa não encontrada' });
     }
     res.status(204).send();
   });
