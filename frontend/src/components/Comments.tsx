@@ -11,6 +11,22 @@ export const Comments = ({ taskId }: CommentsProps) => {
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
 
+  const formatCommentDate = (createdAt: string) => {
+    const date = new Date(createdAt);
+
+    if (Number.isNaN(date.getTime())) {
+      return 'Data indisponivel';
+    }
+
+    return date.toLocaleString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   const fetchComments = useCallback(() => {
     api.get(`/tasks/${taskId}/comments`)
       .then((res) => {
@@ -50,7 +66,10 @@ export const Comments = ({ taskId }: CommentsProps) => {
       <h4>Comentários</h4>
 
       {comments.map(c => (
-        <p key={c.id}>- {c.content}</p>
+        <div key={c.id} className="comment-item">
+          <p className="comment-content">- {c.content}</p>
+          <span className="comment-date">{formatCommentDate(c.created_at)}</span>
+        </div>
       ))}
 
       <input

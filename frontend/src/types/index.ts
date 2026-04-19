@@ -6,7 +6,8 @@ export interface Task {
   }
   
   export interface Comment {
-    id: string;
-    task_id: string;
-    content: string;
-  }
+  id: string;
+  task_id: string;
+  content: string;
+  created_at: string;
+}
