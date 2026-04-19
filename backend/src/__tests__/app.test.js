@@ -22,7 +22,7 @@ describe('Task API Tests', () => {
     };
 
     TaskModel.createTask.mockImplementation((title, description, callback) => {
-      callback(null, { rows: [mockTask] });
+      callback(null, mockTask);
     });
 
     request(app)
@@ -59,7 +59,7 @@ describe('Task API Tests', () => {
     ];
 
     TaskModel.getAllTasks.mockImplementation((callback) => {
-      callback(null, { rows: mockTasks });
+      callback(null, mockTasks);
     });
 
     request(app)
@@ -83,7 +83,7 @@ describe('Task API Tests', () => {
     };
 
     CommentModel.createComment.mockImplementation((taskId, content, callback) => {
-      callback(null, { rows: [mockComment] });
+      callback(null, mockComment);
     });
 
     request(app)

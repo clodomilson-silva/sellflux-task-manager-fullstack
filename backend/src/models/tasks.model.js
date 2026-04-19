@@ -1,7 +1,13 @@
 const client = require('../config/db');
 
 const getAllTasks = (callback) => {
-  client.query('SELECT * FROM tasks ORDER BY created_at DESC', [], callback);
+  client.query('SELECT * FROM tasks ORDER BY created_at DESC', [], (err, result) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+    callback(null, result.rows);
+  });
 };
 
 const createTask = (title, description, callback) => {
@@ -10,7 +16,13 @@ const createTask = (title, description, callback) => {
     VALUES ($1, $2)
     RETURNING *
   `;
-  client.query(query, [title, description], callback);
+  client.query(query, [title, description], (err, result) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+    callback(null, result.rows[0]);
+  });
 };
 
 const toggleTask = (id, callback) => {
@@ -20,7 +32,13 @@ const toggleTask = (id, callback) => {
     WHERE id = $1
     RETURNING *
   `;
-  client.query(query, [id], callback);
+  client.query(query, [id], (err, result) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+    callback(null, result.rows[0]);
+  });
 };
 
 const deleteTask = (id, callback) => {

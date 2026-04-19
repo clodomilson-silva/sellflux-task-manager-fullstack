@@ -1,11 +1,11 @@
 const Task = require('../models/tasks.model');
 
 const getTasks = (req, res) => {
-  Task.getAllTasks((err, result) => {
+  Task.getAllTasks((err, tasks) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.status(200).json(result.rows);
+    res.status(200).json(tasks);
   });
 };
 
@@ -16,22 +16,22 @@ const createTask = (req, res) => {
     return res.status(400).json({ error: 'Titulo é obrigatório' });
   }
 
-  Task.createTask(title, description, (err, result) => {
+  Task.createTask(title, description, (err, task) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.status(201).json(result.rows[0]);
+    res.status(201).json(task);
   });
 };
 
 const toggleTask = (req, res) => {
   const { id } = req.params;
 
-  Task.toggleTask(id, (err, result) => {
+  Task.toggleTask(id, (err, task) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json(result.rows[0]);
+    res.json(task);
   });
 };
 

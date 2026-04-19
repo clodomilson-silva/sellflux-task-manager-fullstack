@@ -6,7 +6,13 @@ const getCommentsByTaskId = (taskId, callback) => {
     WHERE task_id = $1
     ORDER BY created_at ASC
   `;
-  client.query(query, [taskId], callback);
+  client.query(query, [taskId], (err, result) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+    callback(null, result.rows);
+  });
 };
 
 const createComment = (taskId, content, callback) => {
@@ -15,7 +21,13 @@ const createComment = (taskId, content, callback) => {
     VALUES ($1, $2)
     RETURNING *
   `;
-  client.query(query, [taskId, content], callback);
+  client.query(query, [taskId, content], (err, result) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+    callback(null, result.rows[0]);
+  });
 };
 
 module.exports = {
