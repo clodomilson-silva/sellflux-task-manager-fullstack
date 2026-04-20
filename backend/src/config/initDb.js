@@ -2,9 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const client = require('./db');
 
-const initDatabase = () => {
+const initDatabase = (done) => {
   if (process.env.SKIP_SCHEMA_INIT === 'true') {
     console.log('Inicializacao de schema ignorada por configuracao.');
+    if (done) done();
     return;
   }
 
@@ -13,6 +14,7 @@ const initDatabase = () => {
   fs.readFile(schemaPath, 'utf8', (err, sql) => {
     if (err) {
       console.error('Erro ao ler schema.sql:', err);
+      if (done) done(err);
       return;
     }
 
@@ -22,6 +24,7 @@ const initDatabase = () => {
       } else {
         console.log('Schema aplicado com sucesso');
       }
+      if (done) done(err);
     });
   });
 };
